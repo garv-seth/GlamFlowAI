@@ -1,31 +1,12 @@
 from flask import Flask, render_template, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import json
 
 app = Flask(__name__, static_folder='static')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///glamflow.db'
-db = SQLAlchemy(app)
 
-# Define data models
-class Salon(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    address = db.Column(db.String(200), nullable=False)
-    phone = db.Column(db.String(20), nullable=False)
-    rating = db.Column(db.Float, nullable=False)
-    services = db.relationship('Service', backref='salon', lazy='dynamic')
-
-class Service(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    salon_id = db.Column(db.Integer, db.ForeignKey('salon.id'), nullable=False)
-    appointments = db.relationship('Appointment', backref='service', lazy='dynamic')
-
-class Appointment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    service_id = db.Column(db.Integer, db.ForeignKey('service.id'), nullable=False)
-    date = db.Column(db.Date, nullable=False)
-    time = db.Column(db.Time, nullable=False)
+# Load data from JSON file
+with open('salons.json', 'r') as file:
+    salons_data = json.load(file)
 
 # Routes
 @app.route('/')
@@ -41,51 +22,47 @@ def search():
     date = request.form.get('date')
     time = request.form.get('time')
 
-    # Query the database for available appointments
-    appointments = Appointment.query.filter(
-        Appointment.date == datetime.strptime(date, '%Y-%m-%d').date(),
-        Appointment.time == datetime.strptime(time, '%H:%M').time(),
-        Service.name.ilike(f'%{service_type}%'),
-        Salon.address.ilike(f'%{location}%')
-    ).join(Service).join(Salon).all()
-
-    # Prepare the search results
+    # Query the JSON data for available appointments
     results = []
-    for appointment in appointments:
-        salon = appointment.service.salon
-        result = {
-            'salon_id': salon.id,
-            'salon_name': salon.name,
-            'salon_address': salon.address,
-            'salon_phone': salon.phone,
-            'salon_rating': salon.rating,
-            'service_name': appointment.service.name,
-            'appointment_date': appointment.date.strftime('%Y-%m-%d'),
-            'appointment_time': appointment.time.strftime('%H:%M')
-        }
-        results.append(result)
+    for salon in salons_data:
+        for service in salon['services']:
+            if service['name'].lower() == service_type.lower() and salon['address'].lower() == location.lower():
+                for appointment_date, appointment_times in service['timings'].items():
+                    if appointment_date == date:
+                        for appointment_time, status in appointment_times.items():
+                            if appointment_time == time and status == 'Free':
+                                result = {
+                                    'salon_id': salon['id'],
+                                    'salon_name': salon['name'],
+                                    'salon_address': salon['address'],
+                                    'salon_phone': salon['phone'],
+                                    'salon_rating': salon['rating'],
+                                    'service_name': service['name'],
+                                    'service_price': service['price'],
+                                    'appointment_date': appointment_date,
+                                    'appointment_time': appointment_time
+                                }
+                                results.append(result)
 
     # Return the search results as JSON
     return jsonify(results)
 
 @app.route('/salon/<int:salon_id>')
 def salon_details(salon_id):
-    # Query the database for the salon details
-    salon = Salon.query.get_or_404(salon_id)
-
-    # Prepare the salon details
-    details = {
-        'salon_name': salon.name,
-        'salon_address': salon.address,
-        'salon_phone': salon.phone,
-        'salon_rating': salon.rating,
-        'services': [service.name for service in salon.services]
-    }
-
-    # Return the salon details as JSON
-    return jsonify(details)
+    # Get salon details from loaded JSON data
+    for salon in salons_data:
+        if salon['id'] == salon_id:
+            services = [service['name'] for service in salon['services']]
+            details = {
+                'salon_name': salon['name'],
+                'salon_address': salon['address'],
+                'salon_phone': salon['phone'],
+                'salon_rating': salon['rating'],
+                'services': services
+            }
+            return jsonify(details)
+    
+    return jsonify({"error": "Salon not found"}), 404
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)

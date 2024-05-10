@@ -1,0 +1,128 @@
+[
+    {
+        "id": 1,
+        "name": "Glamorous Hair",
+        "address": "123 Main St",
+        "phone": "(555) 555-1234",
+        "rating": 4.8,
+        "services": [
+            {
+                "serviceId": 1,
+                "name": "Haircut",
+                "price": 45.00,
+                "timings": {
+                    "2024-05-11": {
+                        "10:00": "Free",
+                        "11:00": "Booked",
+                        "12:00": "Free",
+                        "13:00": "Booked",
+                        "14:00": "Free",
+                        "15:00": "Booked",
+                        "16:00": "Free",
+                        "17:00": "Free"
+                    },
+                    "2024-05-12": {
+                        "10:00": "Free",
+                        "11:00": "Free",
+                        "12:00": "Booked",
+                        "13:00": "Free",
+                        "14:00": "Booked",
+                        "15:00": "Free",
+                        "16:00": "Free",
+                        "17:00": "Free"
+                    }
+                }
+            },
+            {
+                "serviceId": 2,
+                "name": "Manicure",
+                "price": 30.00,
+                "timings": {
+                    "2024-05-11": {
+                        "10:00": "Free",
+                        "11:00": "Booked",
+                        "12:00": "Free",
+                        "13:00": "Free",
+                        "14:00": "Booked",
+                        "15:00": "Free",
+                        "16:00": "Booked",
+                        "17:00": "Free"
+                    },
+                    "2024-05-12": {
+                        "10:00": "Free",
+                        "11:00": "Free",
+                        "12:00": "Booked",
+                        "13:00": "Free",
+                        "14:00": "Free",
+                        "15:00": "Booked",
+                        "16:00": "Free",
+                        "17:00": "Free"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Sharp Cuts",
+        "address": "456 Elm St",
+        "phone": "(555) 555-5678",
+        "rating": 4.7,
+        "services": [
+            {
+                "serviceId": 3,
+                "name": "Men's Haircut",
+                "price": 35.00,
+                "timings": {
+                    "2024-05-11": {
+                        "10:00": "Booked",
+                        "11:00": "Free",
+                        "12:00": "Free",
+                        "13:00": "Booked",
+                        "14:00": "Free",
+                        "15:00": "Free",
+                        "16:00": "Booked",
+                        "17:00": "Free"
+                    },
+                    "2024-05-12": {
+                        "10:00": "Free",
+                        "11:00": "Booked",
+                        "12:00": "Free",
+                        "13:00": "Free",
+                        "14:00": "Booked",
+                        "15:00": "Free",
+                        "16:00": "Free",
+                        "17:00": "Free"
+                    }
+                }
+            },
+            {
+                "serviceId": 4,
+                "name": "Beard Trim",
+                "price": 20.00,
+                "timings": {
+                    "2024-05-11": {
+                        "10:00": "Free",
+                        "11:00": "Booked",
+                        "12:00": "Free",
+                        "13:00": "Free",
+                        "14:00": "Booked",
+                        "15:00": "Free",
+                        "16:00": "Booked",
+                        "17:00": "Free"
+                    },
+                    "2024-05-12": {
+                        "10:00": "Free",
+                        "11:00": "Free",
+                        "12:00": "Booked",
+                        "13:00": "Free",
+                        "14:00": "Free",
+                        "15:00": "Booked",
+                        "16:00": "Free",
+                        "17:00": "Free"
+                    }
+                }
+            }
+        ]
+    }
+]
