@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Find Salon Appointments</h1>
+<form id="search-form">
+  <div>
+    <label for="service-type">Service Type:</label>
+    <input type="text" id="service-type" name="service_type" required>
+  </div>
+  <div>
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" value="Vancouver" readonly>
+  </div>
+  <div>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required>
+  </div>
+  <div>
+    <label for="time">Time:</label>
+    <input type="time" id="time" name="time" required>
+  </div>
+  <button type="submit">Search</button>
+</form>
+<div id="search-results"></div>
+{% endblock %}
