@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Search Results</h1>
+<div id="search-results">
+  {% for result in results %}
+  <div class="salon-result">
+    <h2>{{ result.salon_name }}</h2>
+    <p>Address: {{ result.salon_address }}</p>
+    <p>Phone: {{ result.salon_phone }}</p>
+    <p>Rating: {{ result.salon_rating }}</p>
+    <a href="{{ url_for('salon_details', salon_id=result.salon_id) }}">View Details</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

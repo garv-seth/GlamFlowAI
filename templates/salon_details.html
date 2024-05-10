@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ salon.salon_name }}</h1>
+<p>Address: {{ salon.salon_address }}</p>
+<p>Phone: {{ salon.salon_phone }}</p>
+<p>Rating: {{ salon.salon_rating }}</p>
+<h2>Services Offered:</h2>
+<ul>
+  {% for service in salon.services %}
+  <li>{{ service }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}
