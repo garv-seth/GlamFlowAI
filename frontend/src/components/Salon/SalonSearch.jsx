@@ -1,39 +1,63 @@
 import React from 'react';
+import {
+  Box,
+  Image,
+  Heading,
+  Text,
+  Button,
+  useColorModeValue,
+  SimpleGrid,
+} from '@chakra-ui/react';
 
-const SalonSearch = ({results}) => {
-  console.log("result,",results)
-  let mins =  [{
-    salon_id: 2,
-    salon_name: "Sharp Cuts",
-    salon_address: "456 Elm St",
-    salon_phone: "(555) 555-5678",
-    salon_rating: 4.7,
-    service_name: "Men's Haircut",
-    service_price: 35.00,
-    appointment_date: "2024-05-12", // Replace with the selected date from your component
-    appointment_time: "10:00", // Replace with the selected time from your component (assuming it's free based on the timings data)
-  },]
+const SalonSearch = ({ results }) => {
+  console.log("result,", results);
+
+  const cardBg = useColorModeValue('background', 'gray.900');
+  const cardTextColor = useColorModeValue('text', 'text');
+  const buttonBg = useColorModeValue('button.bg', 'button.bg');
+  const buttonText = useColorModeValue('button.text', 'button.text');
+  const buttonHoverBg = useColorModeValue('button.hoverBg', 'button.hoverBg');
+
   return (
-    <div className="salon-search-results">
+    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} className="salon-search-results">
       {results.map((result) => (
-        <div key={result.salon_id} className="salon-card">
-          <img
+        <Box
+          key={result.salon_id}
+          className="salon-card"
+          bg={cardBg}
+          color={cardTextColor}
+          p={4}
+          borderRadius="md"
+          boxShadow="md"
+          textAlign="center"
+        >
+          <Image
             src="images/salon-placeholder.jpg" // Replace with placeholder or dynamic image
             alt="Salon"
+            borderRadius="md"
+            mb={4}
           />
-          <h3>{result.salon_name}</h3>
-          <p className="rating">
+          <Heading as="h3" size="md" mb={2}>
+            {result.salon_name}
+          </Heading>
+          <Text className="rating" mb={2}>
             <span>Rating: {result.salon_rating}</span>
-          </p>
-          <p>
-            <span className="service">Service: {result.service_name}</span>
-          </p>
-          <p>Date: {result.appointment_date}</p>
-          <p>Time: {result.appointment_time}</p>
-          <button>Book Appointment</button>
-        </div>
+          </Text>
+          <Text className="service" mb={2}>
+            Service: {result.service_name}
+          </Text>
+          <Text mb={2}>Date: {result.appointment_date}</Text>
+          <Text mb={2}>Time: {result.appointment_time}</Text>
+          <Button
+            bg={buttonBg}
+            color={buttonText}
+            _hover={{ bg: buttonHoverBg }}
+          >
+            Book Appointment
+          </Button>
+        </Box>
       ))}
-    </div>
+    </SimpleGrid>
   );
 };
 
