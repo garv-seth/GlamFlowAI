@@ -70,16 +70,6 @@ export default function LandingPage() {
             description="Get a fresh cut from our expert stylists."
             buttonText="Book Haircut"
           />
-          <ServiceCard
-            title="Manicure"
-            description="Pamper your nails with a relaxing manicure."
-            buttonText="Book Manicure"
-          />
-          <ServiceCard
-            title="Waxing"
-            description="Smooth and confident with our waxing services."
-            buttonText="Book Waxing"
-          />
           <Button
             colorScheme="green"
             bg="green.400"

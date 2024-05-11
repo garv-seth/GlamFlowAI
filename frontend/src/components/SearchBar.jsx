@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -12,68 +12,55 @@ import {
   HStack,
   useDisclosure,
   useColorModeValue,
-} from '@chakra-ui/react';
-import SalonSearch from './Salon/SalonSearch';
+  Image,
+  Badge,
+  Text,
+} from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/react";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import SalonSearch from "./Salon/SalonSearch";
 
 export default function SearchBar() {
-  const [serviceType, setServiceType] = useState('');
-  const [location, setLocation] = useState('');
+  const [serviceType, setServiceType] = useState("");
+  const [location, setLocation] = useState("");
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [availableTimes, setAvailableTimes] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchResults, setSearchResults] = useState([]);
-  const bg = useColorModeValue('gray.100', 'gray.900');
+  const bg = useColorModeValue("gray.100", "gray.900");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     setError(null);
-    const sample_data = [{
-      salon_id: 2,
-      salon_name: "Sharp Cuts",
-      salon_address: "456 Elm St",
-      salon_phone: "(555) 555-5678",
-      salon_rating: 4.7,
-      service_name: "Men's Haircut",
-      service_price: 35.00,
-      appointment_date: "2024-05-12", // Replace with the selected date from your component
-      appointment_time: "10:00", // Replace with the selected time from your component (assuming it's free based on the timings data)
-    },{
-      salon_id: 2,
-      salon_name: "Queen Bee's Studio",
-      salon_address: "456 Elm St",
-      salon_phone: "(555) 555-5678",
-      salon_rating: 4.7,
-      service_name: "Men's Haircut",
-      service_price: 35.00,
-      appointment_date: "2024-05-12", // Replace with the selected date from your component
-      appointment_time: "10:00", // Replace with the selected time from your component (assuming it's free based on the timings data)
-    }]
     try {
-      // const response = await fetch('http://127.0.0.1:5000/search', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     service_type: serviceType,
-      //     location: location,
-      //     date: date,
-      //     time: time,
-      //   }),
-      // });
+      const serviceParam = encodeURIComponent(serviceType);
+      const locationParam = encodeURIComponent(location);
+      const dateParam = new Date(date).toISOString().slice(0, 10);
+      const timeParam = time;
+console.log("all the params",serviceParam,locationParam,dateParam,timeParam)
+      // const serviceParam = encodeURIComponent("Men's Haircut");
+      // const locationParam = encodeURIComponent("Vancouver");
+      // const dateParam = "2024-05-14";
+      // const timeParam = "3:00 PM";
 
-      // if (!response.ok) {
-      //   throw new Error('Failed to fetch search results');
-      // }
+      const url = `http://127.0.0.1:5000/search-appointments?service=${serviceParam}&location=${locationParam}&date=${dateParam}&time=${timeParam}`;
 
-      // const data = await response.json();
-      // // Handle search results here
-      // console.log('Search results:', data);
-      // Assuming you have logic to display results in a separate component
-      setSearchResults(sample_data)
-      //setSearchResults(data); // Pass data to SearchResults component
+      const response = await fetch(url, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch search results");
+      }
+
+      const data = await response.json();
+      console.log("Search results idddddd:", data);
+      setSearchResults(data);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -88,8 +75,19 @@ export default function SearchBar() {
   const generateTimeOptions = () => {
     const options = [];
     for (let hour = 10; hour <= 20; hour++) {
-      const timeString = `${hour.toString().padStart(2, '0')}:00`;
-      options.push(<option key={timeString} value={timeString}>{timeString}</option>);
+      for (let minute = 0; minute < 60; minute += 60) {
+        const time = new Date().setHours(hour, minute);
+        const formattedTime = new Intl.DateTimeFormat("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        }).format(time);
+        options.push(
+          <option key={formattedTime} value={formattedTime}>
+            {formattedTime}
+          </option>
+        );
+      }
     }
     setAvailableTimes(options);
   };
@@ -112,10 +110,9 @@ export default function SearchBar() {
                 onChange={(e) => setServiceType(e.target.value)}
                 placeholder="Select Service"
               >
-                <option value="Haircut">Haircut</option>
+                <option value="Women's Haircut">Women's Haircut</option>
                 <option value="Manicure">Manicure</option>
-                <option value="Beard Trim">Beard Trim</option>
-                {/* Add more service options as needed */}
+                <option value="Men's Haircut">Men's Haircut</option>
               </Select>
               <FormErrorMessage>{error && error.serviceType}</FormErrorMessage>
             </FormControl>
@@ -132,29 +129,89 @@ export default function SearchBar() {
             </FormControl>
           </HStack>
           <HStack width="full" spacing={4} mt={4}>
-  <FormControl isRequired>
-    <FormLabel htmlFor="date">Date:</FormLabel>
-    <Input id="date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-    <FormErrorMessage>{error && error.date}</FormErrorMessage>
-  </FormControl>
-  <FormControl isRequired>
-    <FormLabel htmlFor="time">Time:</FormLabel>
-    <Select id="time" value={time} onChange={(e) => setTime(e.target.value)} >
-      <option value="">Select Time</option>
-      {availableTimes}
-    </Select>
-    <FormErrorMessage>{error && error.time}</FormErrorMessage>
-  </FormControl>
-</HStack>
-<Button type="submit" isLoading={isLoading} disabled={isLoading} colorScheme="blue">
-  {isLoading ? 'Searching...' : 'Find Appointments'}
-</Button>
-{error && <FormErrorMessage mt={4}>{error}</FormErrorMessage>}
-{/* Display search results here */}
-
-      </form>
-    </Box>
-    {searchResults && <SalonSearch results={searchResults}/>}
-  </>
-);
+            <FormControl isRequired>
+              <FormLabel htmlFor="date">Date:</FormLabel>
+              <Input
+                id="date"
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+              <FormErrorMessage>{error && error.date}</FormErrorMessage>
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel htmlFor="time">Time:</FormLabel>
+              <Select
+                id="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+              >
+                <option value="">Select Time</option>
+                {availableTimes}
+              </Select>
+              <FormErrorMessage>{error && error.time}</FormErrorMessage>
+            </FormControl>
+          </HStack>
+          <Button
+            type="submit"
+            isLoading={isLoading}
+            disabled={isLoading}
+            colorScheme="blue"
+            mt={4}
+          >
+            {isLoading ? "Searching..." : "Find Appointments"}
+          </Button>
+          {error && <FormErrorMessage mt={4}>{error}</FormErrorMessage>}
+        </form>
+      </Box>
+      {searchResults?.length > 0 && (
+        <Box mt={8} px={4}>
+          <Flex flexWrap="wrap" justifyContent="center">
+            {searchResults.map((result,index) => (
+              <Box
+                key={index}
+                borderWidth="1px"
+                borderRadius="lg"
+                overflow="hidden"
+                maxW="400px"
+                width="100%"
+                mx={4}
+                my={2}
+                boxShadow="lg"
+              >
+                <Image
+                  src="https://th.bing.com/th/id/OIP.uzwDBm-UYBtL0ifIzs0uPgHaGL?w=199&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7"
+                  alt="Salon"
+                  objectFit="cover"
+                  w="100%"
+                  h="200px"
+                />
+                <Box p={4}>
+                  <Heading as="h4" size="md" mb={2}>
+                    {result.salon_name}
+                  </Heading>
+                  <Text fontSize="md" color="gray.500" mb={2}>
+                    {result.salon_address}
+                  </Text>
+                  <Flex alignItems="center" mb={2}>
+                    <Badge colorScheme="green" mr={2}>
+                      {result.salon_rating}
+                    </Badge>
+                    <Text fontSize="sm">Rating</Text>
+                  </Flex>
+                  <Text fontSize="sm" mb={2}>
+                    Service: {result.service_name}
+                  </Text>
+                  <Text fontSize="sm" mb={2}>
+                    Date & Time: {result.availability}
+                  </Text>
+                  <Button colorScheme="blue">Book Appointment</Button>
+                </Box>
+              </Box>
+            ))}
+          </Flex>
+        </Box>
+      )}
+    </>
+  );
 }
