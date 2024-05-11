@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SearchBar from '../components/SearchBar';
-import SearchService from '../components/SearchService';
+import LandingPage from '../components/LandingPage';
 
 const HomePage = () => {
   const [serviceType, setServiceType] = useState('');
@@ -14,10 +14,7 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <header>
-        <h1>GlamFlow AI</h1>
-      </header>
-      <main>
+      <LandingPage/>
         <SearchBar
           serviceType={serviceType}
           onServiceTypeChange={setServiceType}
@@ -29,14 +26,6 @@ const HomePage = () => {
           onTimeChange={setTime}
           onSubmit={handleSearch}
         />
-        <SearchService
-          serviceType={serviceType}
-          location={location}
-          date={date}
-          time={time}
-          onSearchResults={(results) => console.log('Search results:', results)}
-        />
-      </main>
     </div>
   );
 };
