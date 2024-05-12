@@ -14,7 +14,8 @@ import {
   useTheme,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { ReactComponent as SendIcon } from "../assets/send-icon.svg"; // Updated import path
+import { ReactComponent as SendIcon } from "../assets/send-icon.svg"; // Import your custom Send icon
+import { ReactComponent as AiStarsIcon } from "../assets/ai-stars-icon.svg"; // Import your custom AI stars icon
 
 export default function LandingPage() {
   const theme = useTheme();
@@ -86,9 +87,11 @@ export default function LandingPage() {
             </Text>
             <Box width={{ base: "100%", md: "60%" }}>
               <InputGroup size="lg" boxShadow="lg">
-                <InputLeftElement pointerEvents="none" children={<SearchIcon color="gray.400" />} />
+                <InputLeftElement pointerEvents="none">
+                  <AiStarsIcon fill={primaryColor} /> {/* Use custom SVG and apply primary color */}
+                </InputLeftElement>
                 <Input
-                  placeholder="eg. A Vancouver salon offering both hairstyling and manicure services."
+                  placeholder="eg. Find me a manicure in Vancouver today"
                   bg="white"
                   borderColor="gray.300"
                   _placeholder={{ color: inputPlaceholderColor }}
