@@ -4,83 +4,111 @@ import {
   Heading,
   Container,
   Text,
-  Button,
   Stack,
   Input,
   HStack,
-  useDisclosure,
-  useColorModeValue,
   InputGroup,
   InputLeftElement,
-  InputRightAddon,
+  InputRightElement,
+  IconButton,
+  VStack,
+  useColorModeValue,
+  useTheme,
 } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
-import ServiceCard from "./ServiceCard"; // Replace with your component for service details
+import { SearchIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
 export default function LandingPage() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const bg = useColorModeValue("background", "gray.900");
+  const theme = useTheme();
   const primaryColor = useColorModeValue("primary", "primary");
   const textColor = useColorModeValue("text", "text");
+  const inputPlaceholderColor = useColorModeValue("gray.500", "gray.400");
 
   return (
     <>
-      <Container maxW={"3xl"}>
-        <Stack
-          as={Box}
-          textAlign={"center"}
-          spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}
-        >
-          <HStack width="full" justifyContent="center">
+      <Box
+        bgImage="url('/assets/salon-image.svg')" // Ensure the image path is correct
+        bgSize="cover"
+        bgPosition="center"
+        py={20}
+      >
+        <Container maxW={"7xl"}>
+          <VStack spacing={{ base: 8, md: 14 }} alignItems="flex-start" textAlign="left">
             <Heading
-              fontWeight={600}
-              fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
+              fontFamily="Lora"
+              fontWeight={700}
+              fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
               lineHeight={"110%"}
-              color={primaryColor}
+              color={theme.colors.background}  // Set the color to the background color from the theme
             >
-              Never Miss a Minute of Me-Time: GlamFlow AI to the Rescue!
+              GlamFlow AI
             </Heading>
-          </HStack>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            width="full"
-          >
-            <Text color={textColor} fontSize="sm" mr={4}>
-              Skip the endless scrolling and book salon appointments instantly:
+            <Text 
+            fontSize={{ base: "xl", sm: "2xl", md: "3xl" }} 
+            fontWeight="bold" color={theme.colors.background}>
+              Your AI-Powered last-minute salon saviour!
             </Text>
-          </Box>
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <SearchIcon />
-            </InputLeftElement>
-            <Input
-              size="xl"
-              type="text"
-              placeholder="Search Last minute appointments powered by AI"
-            />
-            <InputRightAddon>
-              <Text>Search</Text>
-            </InputRightAddon>
-          </InputGroup>
-          <ServiceCard
-            title="Haircut"
-            description="Get a fresh cut from our expert stylists."
-            buttonText="Book Haircut"
-          />
-          <Button
-            colorScheme="primary"
-            bg="button.bg"
-            color="button.text"
-            rounded="full"
-            px={6}
-            _hover={{ bg: "button.hoverBg" }}
-          >
-            Book Now
-          </Button>
-        </Stack>
+            <Box width="full">
+              <InputGroup size="lg" boxShadow="lg" mb={4}>
+                <InputLeftElement pointerEvents="none" children={<SearchIcon color="gray.400" />} />
+                <Input
+                  placeholder="Book your services..."
+                  bg="white"
+                  borderColor="gray.300"
+                  _placeholder={{ color: inputPlaceholderColor }}
+                  borderRadius="md"
+                />
+                <Input
+                  placeholder="Where"
+                  bg="white"
+                  borderColor="gray.300"
+                  _placeholder={{ color: inputPlaceholderColor }}
+                  borderRadius="md"
+                  ml={2}
+                  width="30%"
+                />
+                <InputRightElement width="4.5rem">
+                  <IconButton
+                    icon={<SearchIcon />}
+                    colorScheme="pink"
+                    aria-label="Search"
+                  />
+                </InputRightElement>
+              </InputGroup>
+            </Box>
+            <Text fontSize={{ base: "md", sm: "lg", md: "xl" }}fontWeight="bold" color={theme.colors.background}>
+              or ask our AI assistant
+            </Text>
+            <Box width="full">
+              <InputGroup size="lg" boxShadow="lg">
+                <InputLeftElement pointerEvents="none" children={<SearchIcon color="gray.400" />} />
+                <Input
+                  placeholder="eg. A Vancouver salon offering both hairstyling and manicure services."
+                  bg="white"
+                  borderColor="gray.300"
+                  _placeholder={{ color: inputPlaceholderColor }}
+                  borderRadius="md"
+                />
+                <InputRightElement width="4.5rem">
+                  <IconButton
+                    icon={<ArrowRightIcon />}
+                    colorScheme="pink"
+                    aria-label="Search AI"
+                  />
+                </InputRightElement>
+              </InputGroup>
+            </Box>
+          </VStack>
+        </Container>
+      </Box>
+      <Container maxW={"5xl"} py={10}>
+        <VStack spacing={4} textAlign="center">
+          <Heading as="h2" fontFamily="Lora" fontSize="3xl" color={textColor}>
+            About GlamFlow
+          </Heading>
+          <Text color={textColor} px={4}>
+            GlamFlow AI is a revolutionary appointment booking platform designed to empower both beauty professionals and clients. We understand the challenges of finding last-minute appointments, and that's where we come in. Our AI-powered system connects you with available slots at your favourite salons and spas, eliminating the hassle of endless phone calls and online searches.
+          </Text>
+        </VStack>
       </Container>
     </>
   );

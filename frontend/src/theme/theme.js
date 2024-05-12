@@ -14,6 +14,10 @@ const theme = extendTheme({
       disabledText: "#7f8c8d",
     },
   },
+  // fonts: {
+  //   body: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+  //   heading: "Georgia, serif",
+  // },
   fonts: {
     body: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
     heading: "Georgia, serif",
