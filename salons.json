@@ -1,0 +1,52 @@
+[
+    {
+      "salon_id": 2,
+      "salon_name": "Sharp Cuts",
+      "salon_address": "456 Elm St",
+      "salon_phone": "(555) 555-5678",
+      "salon_rating": 4.7,
+      "services": [
+        {"service_name": "Men's Haircut", "service_price": 35.00, "availability": ["2024-05-13, 10:00 AM", "2024-05-15, 2:00 PM"]},
+        {"service_name": "Beard Trim", "service_price": 20.00, "availability": ["2024-05-12, 1:00 PM", "2024-05-14, 4:00 PM"]},
+        {"service_name": "Manicure", "service_price": 20.00, "availability": ["2024-05-12, 1:00 PM", "2024-05-14, 4:00 PM"]}
+      ],
+      "salon_location": "vancouver"
+    },
+    {
+      "salon_id": 3,
+      "salon_name": "Queen Bee's Studio",
+      "salon_address": "123 Main St",
+      "salon_phone": "(555) 555-1234",
+      "salon_rating": 4.8,
+      "services": [
+        {"service_name": "Men's Haircut", "service_price": 40.00, "availability": ["2024-05-14, 3:00 PM", "2024-05-16, 1:00 PM"]},
+        {"service_name": "Beard Trim", "service_price": 25.00, "availability": ["2024-05-11, 2:00 PM"]}
+      ],
+      "salon_location": "vancouver"
+    },
+    {
+      "salon_id": 4,
+      "salon_name": "The Barber Shop",
+      "salon_address": "789 Elm St",
+      "salon_phone": "(555) 555-4567",
+      "salon_rating": 4.3,
+      "services": [
+        { "service_name": "Men's Haircut", "service_price": 38.00, "availability": ["2024-05-14, 3:00 PM", "2024-05-15, 11:00 AM"] },
+        { "service_name": "Women's Haircut", "service_price": 32.00, "availability": ["2024-05-14, 2:00 PM", "2024-05-17, 10:00 AM"] }
+      ],
+      "salon_location": "vancouver"
+    },
+    {
+      "salon_id": 5,
+      "salon_name": "Hairstyles by Sarah",
+      "salon_address": "42 Main St",
+      "salon_phone": "(555) 555-8765",
+      "salon_rating": 5.0,
+      "services": [
+        { "service_name": "Men's Haircut", "service_price": 45.00, "availability": ["2024-05-13, 1:00 PM", "2024-05-16, 4:00 PM"] },
+        { "service_name": "Women's Haircut", "service_price": 40.00, "availability": ["2024-05-12, 3:00 PM", "2024-05-14, 5:00 PM"] }
+      ],
+      "salon_location": "vancouver"
+    }
+  ]
+  
