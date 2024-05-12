@@ -50,40 +50,13 @@ export default function LandingPage() {
             >
               Your AI-Powered last-minute salon saviour!
             </Text>
-            <Box width={{ base: "100%", md: "60%" }}>
-              <InputGroup size="lg" boxShadow="lg" mb={4}>
-                <InputLeftElement pointerEvents="none" children={<SearchIcon color="gray.400" />} />
-                <Input
-                  placeholder="Book your services..."
-                  bg="white"
-                  borderColor="gray.300"
-                  _placeholder={{ color: inputPlaceholderColor }}
-                  borderRadius="md"
-                />
-                <Input
-                  placeholder="Where"
-                  bg="white"
-                  borderColor="gray.300"
-                  _placeholder={{ color: inputPlaceholderColor }}
-                  borderRadius="md"
-                  ml={2}
-                  width="30%"
-                />
-                <InputRightElement width="4.5rem">
-                  <IconButton
-                    icon={<SearchIcon />}
-                    colorScheme="pink"
-                    aria-label="Search"
-                  />
-                </InputRightElement>
-              </InputGroup>
-            </Box>
+            
             <Text 
               fontSize={{ base: "xl", sm: "2xl", md: "3xl" }} 
               fontWeight="bold" 
               color={theme.colors.background}
             >
-              or ask our AI assistant
+              Book an appointment or ask our AI assistant
             </Text>
             <Box width={{ base: "100%", md: "60%" }}>
               <InputGroup size="lg" boxShadow="lg">
