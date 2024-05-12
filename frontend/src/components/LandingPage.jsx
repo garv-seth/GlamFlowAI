@@ -4,9 +4,7 @@ import {
   Heading,
   Container,
   Text,
-  Stack,
   Input,
-  HStack,
   InputGroup,
   InputLeftElement,
   InputRightElement,
@@ -15,11 +13,13 @@ import {
   useColorModeValue,
   useTheme,
 } from "@chakra-ui/react";
-import { SearchIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import { SearchIcon } from "@chakra-ui/icons";
+import { ReactComponent as SendIcon } from "../assets/send-icon.svg"; // Updated import path
 
 export default function LandingPage() {
   const theme = useTheme();
-  const primaryColor = useColorModeValue("primary", "primary");
+  const primaryColor = useColorModeValue(theme.colors.primary, theme.colors.primary);
+  const hoverColor = useColorModeValue(theme.colors.primaryHover, theme.colors.primaryHover);
   const textColor = useColorModeValue("text", "text");
   const inputPlaceholderColor = useColorModeValue("gray.500", "gray.400");
 
@@ -43,11 +43,13 @@ export default function LandingPage() {
               GlamFlow AI
             </Heading>
             <Text 
-            fontSize={{ base: "xl", sm: "2xl", md: "3xl" }} 
-            fontWeight="bold" color={theme.colors.background}>
+              fontSize={{ base: "xl", sm: "2xl", md: "3xl" }} 
+              fontWeight="bold" 
+              color={theme.colors.background}
+            >
               Your AI-Powered last-minute salon saviour!
             </Text>
-            <Box width="full">
+            <Box width={{ base: "100%", md: "60%" }}>
               <InputGroup size="lg" boxShadow="lg" mb={4}>
                 <InputLeftElement pointerEvents="none" children={<SearchIcon color="gray.400" />} />
                 <Input
@@ -75,10 +77,14 @@ export default function LandingPage() {
                 </InputRightElement>
               </InputGroup>
             </Box>
-            <Text fontSize={{ base: "md", sm: "lg", md: "xl" }}fontWeight="bold" color={theme.colors.background}>
+            <Text 
+              fontSize={{ base: "xl", sm: "2xl", md: "3xl" }} 
+              fontWeight="bold" 
+              color={theme.colors.background}
+            >
               or ask our AI assistant
             </Text>
-            <Box width="full">
+            <Box width={{ base: "100%", md: "60%" }}>
               <InputGroup size="lg" boxShadow="lg">
                 <InputLeftElement pointerEvents="none" children={<SearchIcon color="gray.400" />} />
                 <Input
@@ -90,9 +96,13 @@ export default function LandingPage() {
                 />
                 <InputRightElement width="4.5rem">
                   <IconButton
-                    icon={<ArrowRightIcon />}
-                    colorScheme="pink"
+                    icon={<SendIcon fill={primaryColor} />}  // Use the custom SVG icon and apply primary color
                     aria-label="Search AI"
+                    bg="transparent" // Optional: Make button background transparent
+                    _hover={{ 
+                      bg: "transparent", // Optional: Make button background transparent on hover
+                      svg: { fill: hoverColor } // Change the fill color on hover
+                    }}
                   />
                 </InputRightElement>
               </InputGroup>
