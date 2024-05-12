@@ -21,10 +21,9 @@ import {
   ModalBody,
   ModalFooter,
 } from "@chakra-ui/react";
-import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import {Routes, Route, useNavigate} from 'react-router-dom';
-
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 export default function SearchBar() {
   const [serviceType, setServiceType] = useState("");
@@ -44,7 +43,11 @@ export default function SearchBar() {
   const buttonHoverBg = useColorModeValue("button.hoverBg", "button.hoverBg");
 
   const navigate = useNavigate();
-  const { isOpen: isConfirmOpen, onOpen: setIsConfirmOpen, onClose: closeConfirm } = useDisclosure();
+  const {
+    isOpen: isConfirmOpen,
+    onOpen: setIsConfirmOpen,
+    onClose: closeConfirm,
+  } = useDisclosure();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -268,15 +271,22 @@ export default function SearchBar() {
           <ModalHeader>Confirm Booking</ModalHeader>
           <ModalBody>
             <Text>
-              Are you sure you want to book an appointment at {selectedResult?.salon_name} on{" "}
-              {selectedResult?.availability}?
+              Are you sure you want to book an appointment at{" "}
+              {selectedResult?.salon_name} on {selectedResult?.availability}?
             </Text>
           </ModalBody>
           <ModalFooter>
             <Button variant="ghost" onClick={handleCancelConfirmation}>
               Cancel
             </Button>
-            <Button colorScheme="pink" ml={3} onClick={handleConfirmBooking}>
+            <Button
+              colorScheme="primary"
+              bg={buttonBg}
+              color={buttonText}
+              _hover={{ bg: buttonHoverBg }}
+              ml={3}
+              onClick={handleConfirmBooking}
+            >
               Confirm Booking
             </Button>
           </ModalFooter>
