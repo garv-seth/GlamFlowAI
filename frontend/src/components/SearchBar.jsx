@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -15,7 +14,17 @@ import {
   Image,
   Badge,
   Text,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
 } from "@chakra-ui/react";
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import {Routes, Route, useNavigate} from 'react-router-dom';
+
 
 export default function SearchBar() {
   const [serviceType, setServiceType] = useState("");
@@ -25,14 +34,17 @@ export default function SearchBar() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [availableTimes, setAvailableTimes] = useState([]);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchResults, setSearchResults] = useState([]);
+  const [selectedResult, setSelectedResult] = useState(null);
   const bg = useColorModeValue("background", "gray.900");
   const cardBg = useColorModeValue("background", "gray.900");
   const textColor = useColorModeValue("text", "text");
   const buttonBg = useColorModeValue("button.bg", "button.bg");
   const buttonText = useColorModeValue("button.text", "button.text");
   const buttonHoverBg = useColorModeValue("button.hoverBg", "button.hoverBg");
+
+  const navigate = useNavigate();
+  const { isOpen: isConfirmOpen, onOpen: setIsConfirmOpen, onClose: closeConfirm } = useDisclosure();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -43,17 +55,6 @@ export default function SearchBar() {
       const locationParam = encodeURIComponent(location);
       const dateParam = new Date(date).toISOString().slice(0, 10);
       const timeParam = time;
-      console.log(
-        "all the params",
-        serviceParam,
-        locationParam,
-        dateParam,
-        timeParam
-      );
-      // const serviceParam = encodeURIComponent("Men's Haircut");
-      // const locationParam = encodeURIComponent("Vancouver");
-      // const dateParam = "2024-05-14";
-      // const timeParam = "3:00 PM";
 
       const url = `http://127.0.0.1:5000/search-appointments?service=${serviceParam}&location=${locationParam}&date=${dateParam}&time=${timeParam}`;
 
@@ -67,13 +68,24 @@ export default function SearchBar() {
       }
 
       const data = await response.json();
-      console.log("Search results idddddd:", data);
       setSearchResults(data);
     } catch (error) {
       setError(error.message);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleConfirmBooking = () => {
+    console.log("Booking confirmed for:", selectedResult);
+    setSelectedResult(null);
+    closeConfirm();
+    navigate("/appointments");
+  };
+
+  const handleCancelConfirmation = () => {
+    setSelectedResult(null);
+    closeConfirm();
   };
 
   useEffect(() => {
@@ -237,6 +249,10 @@ export default function SearchBar() {
                     bg={buttonBg}
                     color={buttonText}
                     _hover={{ bg: buttonHoverBg }}
+                    onClick={() => {
+                      setSelectedResult(result);
+                      setIsConfirmOpen(true);
+                    }}
                   >
                     Book Appointment
                   </Button>
@@ -246,6 +262,26 @@ export default function SearchBar() {
           </Flex>
         </Box>
       )}
+      <Modal isOpen={isConfirmOpen} onClose={handleCancelConfirmation}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Confirm Booking</ModalHeader>
+          <ModalBody>
+            <Text>
+              Are you sure you want to book an appointment at {selectedResult?.salon_name} on{" "}
+              {selectedResult?.availability}?
+            </Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button variant="ghost" onClick={handleCancelConfirmation}>
+              Cancel
+            </Button>
+            <Button colorScheme="pink" ml={3} onClick={handleConfirmBooking}>
+              Confirm Booking
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }
