@@ -4,6 +4,7 @@ import {
   Avatar,
   HStack,
   Link,
+  Image as ChakraImage,
   IconButton,
   Button,
   Menu,
@@ -57,7 +58,9 @@ export default function Navbar() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={"center"}>
-            <Box color={textColor}><b>GlamGlow AI</b></Box>
+            <Box color={textColor}>
+            <ChakraImage src="/assets/glamflow-logo.svg" alt="Logo" boxSize="50px" />
+            </Box>
             <HStack
               as={"nav"}
               spacing={4}

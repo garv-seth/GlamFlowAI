@@ -3,6 +3,7 @@ import { extendTheme } from "@chakra-ui/react";
 const theme = extendTheme({
   colors: {
     primary: "#C17E76",
+    primaryHover: "#A55C50", 
     secondary: "#FFE0D1",
     background: "#f4f4f9",
     text: "#2a3353",
@@ -14,9 +15,10 @@ const theme = extendTheme({
       disabledText: "#7f8c8d",
     },
   },
+  
   fonts: {
-    body: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
-    heading: "Georgia, serif",
+    body: 'Lora, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+    heading: "Lora, Georgia, serif",
   },
 });
 
