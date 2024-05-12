@@ -1,62 +1,63 @@
 import React from 'react';
 import {
   Box,
-  Button,
-  Flex,
   Image,
+  Heading,
   Text,
-  Badge,
-  Spacer,
+  Button,
+  useColorModeValue,
+  SimpleGrid,
 } from '@chakra-ui/react';
 
 const SalonSearch = ({ results }) => {
-  console.log("result,", results)
-  // Placeholder data
-  // let mins = [{
-  //   salon_id: 2,
-  //   salon_name: "Sharp Cuts",
-  //   salon_address: "456 Elm St",
-  //   salon_phone: "(555) 555-5678",
-  //   salon_rating: 4.7,
-  //   service_name: "Men's Haircut",
-  //   service_price: 35.00,
-  //   appointment_date: "2024-05-12",
-  //   appointment_time: "10:00",
-  // }];
+  console.log("result,", results);
+
+  const cardBg = useColorModeValue('background', 'gray.900');
+  const cardTextColor = useColorModeValue('text', 'text');
+  const buttonBg = useColorModeValue('button.bg', 'button.bg');
+  const buttonText = useColorModeValue('button.text', 'button.text');
+  const buttonHoverBg = useColorModeValue('button.hoverBg', 'button.hoverBg');
 
   return (
-    <Box>
+    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} className="salon-search-results">
       {results.map((result) => (
         <Box
           key={result.salon_id}
-          borderWidth="1px"
-          borderRadius="lg"
-          overflow="hidden"
-          mb={4}
+          className="salon-card"
+          bg={cardBg}
+          color={cardTextColor}
+          p={4}
+          borderRadius="md"
+          boxShadow="md"
+          textAlign="center"
         >
-          <Flex>
-            <Image
-              src="https://th.bing.com/th?id=OIP.vJ--8dAkW-8qf-oJcqJLhwHaFJ&w=300&h=208&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
-              alt="Salon"
-              objectFit="cover"
-              w="200px"
-              h="150px"
-            />
-            <Box p="6">
-              <Flex justifyContent="space-between" alignItems="center" mb={2}>
-                <Text fontSize="xl" fontWeight="semibold">{result.salon_name}</Text>
-                <Badge colorScheme="green">{result.salon_rating}</Badge>
-              </Flex>
-              <Text fontSize="sm" color="gray.500" mb={2}>{result.salon_address}</Text>
-              <Text fontSize="sm" mb={2}>Service: {result.service_name}</Text>
-              <Text fontSize="sm" mb={2}>Date: {result.appointment_date}</Text>
-              <Text fontSize="sm" mb={2}>Time: {result.appointment_time}</Text>
-              <Button colorScheme="blue">Book Appointment</Button>
-            </Box>
-          </Flex>
+          <Image
+            src="images/salon-placeholder.jpg" // Replace with placeholder or dynamic image
+            alt="Salon"
+            borderRadius="md"
+            mb={4}
+          />
+          <Heading as="h3" size="md" mb={2}>
+            {result.salon_name}
+          </Heading>
+          <Text className="rating" mb={2}>
+            <span>Rating: {result.salon_rating}</span>
+          </Text>
+          <Text className="service" mb={2}>
+            Service: {result.service_name}
+          </Text>
+          <Text mb={2}>Date: {result.appointment_date}</Text>
+          <Text mb={2}>Time: {result.appointment_time}</Text>
+          <Button
+            bg={buttonBg}
+            color={buttonText}
+            _hover={{ bg: buttonHoverBg }}
+          >
+            Book Appointment
+          </Button>
         </Box>
       ))}
-    </Box>
+    </SimpleGrid>
   );
 };
 

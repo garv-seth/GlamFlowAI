@@ -1,51 +1,58 @@
 import {
-    Box,
-    chakra,
-    Container,
-    Stack,
-    Text,
-    Image,
-    Flex,
-    VStack,
-    Button,
-    Heading,
-    SimpleGrid,
-    StackDivider,
-    useColorModeValue,
-    List,
-    ListItem,
-  } from '@chakra-ui/react';
-  
-  export default function SalonDetail() {
-    return (
-      <Container maxW={'7xl'}>
-        <SimpleGrid
-          columns={{ base: 1, lg: 2 }}
-          spacing={{ base: 8, md: 10 }}
-          py={{ base: 18, md: 24 }}>
-          <Flex>
-            <Image
-              rounded={'md'}
-              alt={'product image'}
-              src={
-                'https://images.unsplash.com/photo-1560869713-7d0a29430803?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aGFpciUyMHNhbG9ufGVufDB8fDB8fHww'
-              }
-              fit={'cover'}
-              align={'center'} 
-              w={'100%'}
-              h={{ base: '100%', sm: '400px', lg: '500px' }}
-            />
-          </Flex>
-          <Stack spacing={{ base: 6, md: 10 }}>
+  Box,
+  Container,
+  Stack,
+  Text,
+  Image,
+  Flex,
+  VStack,
+  Button,
+  Heading,
+  SimpleGrid,
+  StackDivider,
+  useColorModeValue,
+  List,
+  ListItem,
+} from '@chakra-ui/react';
+
+export default function SalonDetail() {
+  const buttonBg = useColorModeValue('button.bg', 'button.bg');
+  const buttonText = useColorModeValue('button.text', 'button.text');
+  const buttonHoverBg = useColorModeValue('button.hoverBg', 'button.hoverBg');
+  const headingColor = useColorModeValue('primary', 'primary');
+  const dividerColor = useColorModeValue('gray.200', 'gray.600');
+  const servicesColor = useColorModeValue('yellow.500', 'yellow.300');
+  const descriptionColor = useColorModeValue('gray.500', 'gray.400');
+
+  return (
+    <Container maxW={'7xl'}>
+      <SimpleGrid
+        columns={{ base: 1, lg: 2 }}
+        spacing={{ base: 8, md: 10 }}
+        py={{ base: 18, md: 24 }}>
+        <Flex>
+          <Image
+            rounded={'md'}
+            alt={'product image'}
+            src={
+              'https://images.unsplash.com/photo-1560869713-7d0a29430803?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aGFpciUyMHNhbG9ufGVufDB8fDB8fHww'
+            }
+            fit={'cover'}
+            align={'center'}
+            w={'100%'}
+            h={{ base: '100%', sm: '400px', lg: '500px' }}
+          />
+        </Flex>
+        <Stack spacing={{ base: 6, md: 10 }}>
           <Box as={'header'}>
-            <Heading lineHeight={1.1} fontWeight={600} fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
+            <Heading lineHeight={1.1} fontWeight={600} fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }} color={headingColor}>
               Hair Salon Services
             </Heading>
           </Box>
 
-          <Stack spacing={{ base: 4, sm: 6 }} direction={'column'} divider={<StackDivider borderColor={useColorModeValue('gray.200', 'gray.600')} />}>
+          <Stack spacing={{ base: 4, sm: 6 }} direction={'column'} divider={<StackDivider borderColor={dividerColor} />}>
             <VStack spacing={{ base: 4, sm: 6 }}>
-              <Text color={useColorModeValue('gray.500', 'gray.400')} fontSize={'2xl'} fontWeight={'300'}>
+              <Text color={descriptionColor} fontSize={'2xl'} fontWeight={'300'}>
                 We offer a variety of hair care services to meet your needs. From haircuts and styling to coloring and treatments, our experienced stylists will help you achieve your desired look.
               </Text>
               <Text fontSize={'lg'}>
@@ -55,7 +62,7 @@ import {
             <Box>
               <Text
                 fontSize={{ base: '16px', lg: '18px' }}
-                color={useColorModeValue('yellow.500', 'yellow.300')}
+                color={servicesColor}
                 fontWeight={'500'}
                 textTransform={'uppercase'}
                 mb={'4'}
@@ -88,10 +95,11 @@ import {
             mt={8}
             size={'lg'}
             py={'7'}
-            bg={useColorModeValue('gray.900', 'gray.50')}
-            color={useColorModeValue('white', 'gray.900')}
+            bg={buttonBg}
+            color={buttonText}
             textTransform={'uppercase'}
             _hover={{
+              bg: buttonHoverBg,
               transform: 'translateY(2px)',
               boxShadow: 'lg',
             }}
@@ -103,7 +111,7 @@ import {
             <Text>Free Consultation</Text>
           </Stack>
         </Stack>
-        </SimpleGrid>
-      </Container>
-    );
-  }
+      </SimpleGrid>
+    </Container>
+  );
+}

@@ -8,19 +8,20 @@ import {
   Stack,
   Input,
   HStack,
-  IconButton,
   useDisclosure,
   useColorModeValue,
   InputGroup,
   InputLeftElement,
   InputRightAddon,
 } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons"; // Using Chakra UI SearchIcon
+import { SearchIcon } from "@chakra-ui/icons";
 import ServiceCard from "./ServiceCard"; // Replace with your component for service details
 
 export default function LandingPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const bg = useColorModeValue("gray.100", "gray.900");
+  const bg = useColorModeValue("background", "gray.900");
+  const primaryColor = useColorModeValue("primary", "primary");
+  const textColor = useColorModeValue("text", "text");
 
   return (
     <>
@@ -36,7 +37,7 @@ export default function LandingPage() {
               fontWeight={600}
               fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
               lineHeight={"110%"}
-              color={bg}
+              color={primaryColor}
             >
               Never Miss a Minute of Me-Time: GlamFlow AI to the Rescue!
             </Heading>
@@ -47,35 +48,35 @@ export default function LandingPage() {
             justifyContent="center"
             width="full"
           >
-            <Text color="gray.500" fontSize="sm" mr={4}>
+            <Text color={textColor} fontSize="sm" mr={4}>
               Skip the endless scrolling and book salon appointments instantly:
             </Text>
           </Box>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
-              <SearchIcon></SearchIcon>
+              <SearchIcon />
             </InputLeftElement>
             <Input
               size="xl"
               type="text"
-              placeHolder="Search Last minute appointments powered by AI"
+              placeholder="Search Last minute appointments powered by AI"
             />
             <InputRightAddon>
               <Text>Search</Text>
             </InputRightAddon>
           </InputGroup>
-          {/* Replace with your actual service details and button component */}
           <ServiceCard
             title="Haircut"
             description="Get a fresh cut from our expert stylists."
             buttonText="Book Haircut"
           />
           <Button
-            colorScheme="green"
-            bg="green.400"
+            colorScheme="primary"
+            bg="button.bg"
+            color="button.text"
             rounded="full"
             px={6}
-            _hover={{ bg: "green.500" }}
+            _hover={{ bg: "button.hoverBg" }}
           >
             Book Now
           </Button>

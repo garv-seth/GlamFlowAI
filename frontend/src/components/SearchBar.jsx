@@ -16,9 +16,6 @@ import {
   Badge,
   Text,
 } from "@chakra-ui/react";
-import { Icon } from "@chakra-ui/react";
-import { FaMapMarkerAlt } from "react-icons/fa";
-import SalonSearch from "./Salon/SalonSearch";
 
 export default function SearchBar() {
   const [serviceType, setServiceType] = useState("");
@@ -30,7 +27,12 @@ export default function SearchBar() {
   const [availableTimes, setAvailableTimes] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchResults, setSearchResults] = useState([]);
-  const bg = useColorModeValue("gray.100", "gray.900");
+  const bg = useColorModeValue('background', 'gray.900');
+  const cardBg = useColorModeValue('background', 'gray.900');
+  const textColor = useColorModeValue('text', 'text');
+  const buttonBg = useColorModeValue('button.bg', 'button.bg');
+  const buttonText = useColorModeValue('button.text', 'button.text');
+  const buttonHoverBg = useColorModeValue('button.hoverBg', 'button.hoverBg');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -94,21 +96,25 @@ console.log("all the params",serviceParam,locationParam,dateParam,timeParam)
 
   return (
     <>
-      <Box maxW="3xl" mx="auto" py={12} bg={bg} rounded="lg" shadow="md">
+      <Box maxW="3xl" mx="auto" py={12} bg={cardBg} rounded="lg" shadow="md">
         <Flex justifyContent="center">
-          <Heading as="h2" fontSize="xl" mb={6}>
+          <Heading as="h2" fontSize="xl" mb={6} color={textColor}>
             Find Your Perfect Appointment
           </Heading>
         </Flex>
         <form onSubmit={handleSubmit}>
           <HStack width="full" spacing={4}>
             <FormControl isRequired>
-              <FormLabel htmlFor="service-type">Service Type:</FormLabel>
+              <FormLabel htmlFor="service-type" color={textColor}>
+                Service Type:
+              </FormLabel>
               <Select
                 id="service-type"
                 value={serviceType}
                 onChange={(e) => setServiceType(e.target.value)}
                 placeholder="Select Service"
+                bg={cardBg}
+                color={textColor}
               >
                 <option value="Women's Haircut">Women's Haircut</option>
                 <option value="Manicure">Manicure</option>
@@ -117,34 +123,46 @@ console.log("all the params",serviceParam,locationParam,dateParam,timeParam)
               <FormErrorMessage>{error && error.serviceType}</FormErrorMessage>
             </FormControl>
             <FormControl isRequired>
-              <FormLabel htmlFor="location">Location:</FormLabel>
+              <FormLabel htmlFor="location" color={textColor}>
+                Location:
+              </FormLabel>
               <Input
                 id="location"
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="Enter your address or zip code"
+                bg={cardBg}
+                color={textColor}
               />
               <FormErrorMessage>{error && error.location}</FormErrorMessage>
             </FormControl>
           </HStack>
           <HStack width="full" spacing={4} mt={4}>
             <FormControl isRequired>
-              <FormLabel htmlFor="date">Date:</FormLabel>
+              <FormLabel htmlFor="date" color={textColor}>
+                Date:
+              </FormLabel>
               <Input
                 id="date"
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
+                bg={cardBg}
+                color={textColor}
               />
               <FormErrorMessage>{error && error.date}</FormErrorMessage>
             </FormControl>
             <FormControl isRequired>
-              <FormLabel htmlFor="time">Time:</FormLabel>
+              <FormLabel htmlFor="time" color={textColor}>
+                Time:
+              </FormLabel>
               <Select
                 id="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
+                bg={cardBg}
+                color={textColor}
               >
                 <option value="">Select Time</option>
                 {availableTimes}
@@ -156,10 +174,13 @@ console.log("all the params",serviceParam,locationParam,dateParam,timeParam)
             type="submit"
             isLoading={isLoading}
             disabled={isLoading}
-            colorScheme="blue"
+            colorScheme="primary"
+            bg={buttonBg}
+            color={buttonText}
+            _hover={{ bg: buttonHoverBg }}
             mt={4}
           >
-            {isLoading ? "Searching..." : "Find Appointments"}
+            {isLoading ? 'Searching...' : 'Find Appointments'}
           </Button>
           {error && <FormErrorMessage mt={4}>{error}</FormErrorMessage>}
         </form>

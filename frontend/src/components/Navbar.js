@@ -24,26 +24,30 @@ const Links = [
   { name: "About Us", path: "/about-us" }
 ];
 
-const Navigation = ({ children }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
-    }}
-  >
-    {children}
-  </Link>
+const Navigation = ({ children, to }) => (
+  <NavLink to={to}>
+    <Link
+      px={2}
+      py={1}
+      rounded={"md"}
+      _hover={{
+        textDecoration: "none",
+        bg: useColorModeValue("secondary", "gray.700"),
+      }}
+    >
+      {children}
+    </Link>
+  </NavLink>
 );
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const bgColor = useColorModeValue("background", "gray.900");
+  const textColor = useColorModeValue("text", "text");
 
   return (
     <>
-      <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
+      <Box bg={bgColor} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}
@@ -53,16 +57,16 @@ export default function Navbar() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={"center"}>
-            <Box><b>GlamGlow AI</b></Box>
+            <Box color={textColor}><b>GlamGlow AI</b></Box>
             <HStack
               as={"nav"}
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (
-                <Navigation key={link}>
-                  <NavLink to={link.path}>{link.name}</NavLink>
-                 </Navigation>
+                <Navigation key={link.name} to={link.path}>
+                  {link.name}
+                </Navigation>
               ))}
             </HStack>
           </HStack>
@@ -84,7 +88,7 @@ export default function Navbar() {
               </MenuButton>
               <MenuList>
                 <MenuItem>
-                <NavLink to='/appointments'>Appointments</NavLink>
+                  <NavLink to='/appointments'>Appointments</NavLink>
                 </MenuItem>
                 <MenuItem>Link 2</MenuItem>
                 <MenuDivider />
@@ -98,7 +102,9 @@ export default function Navbar() {
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
-                <Navigation key={link}>{link.name}</Navigation>
+                <Navigation key={link.name} to={link.path}>
+                  {link.name}
+                </Navigation>
               ))}
             </Stack>
           </Box>
