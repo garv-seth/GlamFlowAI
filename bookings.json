@@ -1,0 +1,25 @@
+{
+    "1234": {
+        "Bookings": {
+            "upcoming": {
+                "The Barber Shop": {
+                    "salon_address": "789 Elm St",
+                    "salon_phone": "(555) 555-4567",
+                    "salon_location": "vancouver",
+                    "salon_rating": 4.3,
+                    "services": [
+                        {
+                            "service_name": "Men's Haircut",
+                            "service_price": "38.0"
+                        }
+                    ],
+                    "availability": [
+                        "2024-05-14, 3:00 PM"
+                    ]
+                }
+            },
+            "past": {}
+        },
+        "counter": 1
+    }
+}
