@@ -1,4 +1,6 @@
-Flask==2.2.3
+Flask~=3.0.3
 Flask-SQLAlchemy==3.0.3
 python-dotenv==1.0.0
 SQLAlchemy==1.4.46
+
+couchbase~=4.1.12

@@ -61,7 +61,7 @@ if Cluster is not None:
         search_req = search.SearchRequest.create(search.MatchNoneQuery()).with_vector_search(
             VectorSearch.from_vector_query(VectorQuery('embedding', user_embedding, num_candidates=10))
         )
-        result = scope.search(search_index, search_req, SearchOptions(limit=10))
+        result = scope.search(search_index, search_req, search.SearchOptions(limit=10))
 
         # Process search results
         results = []
