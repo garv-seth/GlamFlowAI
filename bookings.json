@@ -11,15 +11,25 @@
                         {
                             "service_name": "Men's Haircut",
                             "service_price": "38.0"
+                        },
+                        {
+                            "service_name": "Men's Haircut",
+                            "service_price": "38.0"
+                        },
+                        {
+                            "service_name": "Men's Haircut",
+                            "service_price": "38.0"
                         }
                     ],
                     "availability": [
+                        "2024-05-14, 3:00 PM",
+                        "2024-05-14, 3:00 PM",
                         "2024-05-14, 3:00 PM"
                     ]
                 }
             },
             "past": {}
         },
-        "counter": 1
+        "counter": 3
     }
 }
