@@ -27,12 +27,12 @@ export default function SearchBar() {
   const [availableTimes, setAvailableTimes] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchResults, setSearchResults] = useState([]);
-  const bg = useColorModeValue('background', 'gray.900');
-  const cardBg = useColorModeValue('background', 'gray.900');
-  const textColor = useColorModeValue('text', 'text');
-  const buttonBg = useColorModeValue('button.bg', 'button.bg');
-  const buttonText = useColorModeValue('button.text', 'button.text');
-  const buttonHoverBg = useColorModeValue('button.hoverBg', 'button.hoverBg');
+  const bg = useColorModeValue("background", "gray.900");
+  const cardBg = useColorModeValue("background", "gray.900");
+  const textColor = useColorModeValue("text", "text");
+  const buttonBg = useColorModeValue("button.bg", "button.bg");
+  const buttonText = useColorModeValue("button.text", "button.text");
+  const buttonHoverBg = useColorModeValue("button.hoverBg", "button.hoverBg");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -43,7 +43,13 @@ export default function SearchBar() {
       const locationParam = encodeURIComponent(location);
       const dateParam = new Date(date).toISOString().slice(0, 10);
       const timeParam = time;
-console.log("all the params",serviceParam,locationParam,dateParam,timeParam)
+      console.log(
+        "all the params",
+        serviceParam,
+        locationParam,
+        dateParam,
+        timeParam
+      );
       // const serviceParam = encodeURIComponent("Men's Haircut");
       // const locationParam = encodeURIComponent("Vancouver");
       // const dateParam = "2024-05-14";
@@ -180,7 +186,7 @@ console.log("all the params",serviceParam,locationParam,dateParam,timeParam)
             _hover={{ bg: buttonHoverBg }}
             mt={4}
           >
-            {isLoading ? 'Searching...' : 'Find Appointments'}
+            {isLoading ? "Searching..." : "Find Appointments"}
           </Button>
           {error && <FormErrorMessage mt={4}>{error}</FormErrorMessage>}
         </form>
@@ -188,7 +194,7 @@ console.log("all the params",serviceParam,locationParam,dateParam,timeParam)
       {searchResults?.length > 0 && (
         <Box mt={8} px={4}>
           <Flex flexWrap="wrap" justifyContent="center">
-            {searchResults.map((result,index) => (
+            {searchResults.map((result, index) => (
               <Box
                 key={index}
                 borderWidth="1px"
@@ -226,7 +232,14 @@ console.log("all the params",serviceParam,locationParam,dateParam,timeParam)
                   <Text fontSize="sm" mb={2}>
                     Date & Time: {result.availability}
                   </Text>
-                  <Button colorScheme="blue">Book Appointment</Button>
+                  <Button
+                    colorScheme="primary"
+                    bg={buttonBg}
+                    color={buttonText}
+                    _hover={{ bg: buttonHoverBg }}
+                  >
+                    Book Appointment
+                  </Button>
                 </Box>
               </Box>
             ))}
