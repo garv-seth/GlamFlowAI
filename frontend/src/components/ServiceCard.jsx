@@ -22,10 +22,10 @@ export default function ServiceCard() {
     <SimpleGrid spacing={2} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
       <Card bg={cardBg} color={cardTextColor}>
         <CardHeader>
-          <Heading size='md'>Hair Salons</Heading>
+          <Heading size='md'>Hairstyles by Sarah</Heading>
         </CardHeader>
         <CardBody>
-          <Text>View a summary of all your customers over the last month.</Text>
+          <Text>Women's Haircut on May 13, 2024, at 10:00 AM.</Text>
         </CardBody>
         <CardFooter>
           <Link href="/salon-details">
@@ -41,10 +41,10 @@ export default function ServiceCard() {
       </Card>
       <Card bg={cardBg} color={cardTextColor}>
         <CardHeader>
-          <Heading size='md'>Tattoo Parlours</Heading>
+          <Heading size='md'>Sharp Cuts</Heading>
         </CardHeader>
         <CardBody>
-          <Text>View a summary of all your customers over the last month.</Text>
+          <Text>Men's Haircut on May 13, 2024, at 10:00 AM.</Text>
         </CardBody>
         <CardFooter>
           <Button
